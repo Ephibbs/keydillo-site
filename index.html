@@ -93,6 +93,7 @@ footer .brand svg{height:11px}
 .pop .row span{height:28px;padding:0 12px;border-radius:14px;border:1px solid #dcdcdc;font-size:12px;display:flex;align-items:center}
 .pop .ft{border-top:1px solid #ededed;margin-top:8px;padding:8px 16px 12px;font-size:13px;line-height:2.2}
 .demo{max-width:820px;margin:0 auto;padding:0 20px 40px}.demo img{width:100%;height:auto;display:block;border-radius:14px}
+.appshot{max-width:900px;margin:0 auto;padding:0 20px 36px}.appshot img{width:100%;height:auto;display:block}
 .feats{padding:24px 0 40px}
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:28px 40px}
 .fg h3{margin:0 0 4px;font-size:16px}.fg p{margin:0;color:var(--muted);font-size:15px}
@@ -130,6 +131,9 @@ footer .brand svg{height:11px}
 
 <section><div class="w">
 <h2>Features</h2>
+</div>
+<div class="appshot"><picture><source srcset="app-main-dark.png" media="(prefers-color-scheme: dark)"><img src="app-main.png" width="1126" height="726" alt="The keydillo window: projects in the sidebar, a project's keys, and one key's page showing it is sent only to api.anthropic.com" loading="lazy"></picture></div>
+<div class="w">
 <div class="fg"><div><h3>Turn it off per project</h3><p>Put a project's real keys back in its <code>.env</code> with Touch ID, and Secure it again in one click.</p></div><div><h3>Keys only go where they belong</h3><p>Each API key is sent only to its own host. A prompt injection can't send it anywhere else.</p></div><div><h3>Touch ID when it matters</h3><p>Approve each new site, and as often as you choose.</p></div><div><h3>See and end access</h3><p>The Access page shows what's approved right now. End any of it in one click.</p></div><div><h3>Warns about real keys</h3><p>If real keys are left in a project's <code>.env</code>, keydillo tells you.</p></div><div><h3>Works with your agent</h3><p>Claude puts <code>kd</code> in front for you. Cursor, Codex and others work with <code>kd</code> too.</p></div><div><h3>No more managing .env files</h3><p>Import them once. Your keys become placeholders, and the real values live in keydillo, one place for every project.</p></div><div><h3>Free and local</h3><p>No account, no cloud, no telemetry. MIT licensed.</p></div></div>
 </div></section>
 
