@@ -89,6 +89,7 @@ footer .brand svg{height:11px}
 .pop .row b{font-size:13px;font-weight:500;display:block}.pop .row small{font-size:12px;color:#676767}
 .pop .row span{height:28px;padding:0 12px;border-radius:14px;border:1px solid #dcdcdc;font-size:12px;display:flex;align-items:center}
 .pop .ft{border-top:1px solid #ededed;margin-top:8px;padding:8px 16px 12px;font-size:13px;line-height:2.2}
+.demo{max-width:820px;margin:0 auto;padding:0 20px 40px}.demo img{width:100%;height:auto;display:block;border-radius:14px}
 .feats{padding:24px 0 40px}
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:28px 40px}
 .fg h3{margin:0 0 4px;font-size:16px}.fg p{margin:0;color:var(--muted);font-size:15px}
@@ -111,18 +112,7 @@ footer .brand svg{height:11px}
 <p class="sub">Get set up in seconds and forget about it.</p>
 <div class="ctas"><a class="btn" href="#install">Get keydillo</a><a class="btn alt" href="https://github.com/Ephibbs/keydillo">GitHub</a></div>
 </div></header>
-<div class="shot" aria-label="The macOS Touch ID window asking to let Claude Code use an OpenAI key">
-<div class="mbar"><span>Wi‑Fi</span><span class="on"><svg class="mbi" viewBox="4.5 49.5 94.5 20.0" aria-hidden="true"><g transform="translate(0,0) scale(1)">
-<mask id="kmb" maskUnits="userSpaceOnUse" x="-20" y="-20" width="140" height="140">
-<g fill="#fff"><circle cx="12" cy="62" r="6.5"/><circle cx="29" cy="62" r="6.5"/><circle cx="46" cy="62" r="6.5"/><path d="M58 68.5 A16 18 0 0 1 90 68.5 Z"/><path d="M87 58 C92 59 96 63 98 68.5 L85 68.5 Z"/><path d="M87 59 L89.5 52 L92 60 Z"/></g><g fill="#000"><path d="M68 48 V69 M74 48 V69 M80 48 V69" stroke="#000" stroke-width="2.4"/></g></mask>
-<rect x="-20" y="-20" width="140" height="140" fill="currentColor" mask="url(#kmb)"/></g></svg></span><span>Mon 6:45 PM</span></div>
-<div class="tdlg"><svg class="appi" viewBox="80 80 864 864" aria-hidden="true"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2b2b"/><stop offset="1" stop-color="#0b0b0b"/></linearGradient></defs>
-<rect x="100" y="100" width="824" height="824" rx="185" fill="url(#ag)"/>
-<rect x="101.5" y="101.5" width="821" height="821" rx="183.5" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="3"/>
-<g transform="translate(246.6153846153846,206.8717948717948) scale(5.128205128205129)">
-<mask id="am" maskUnits="userSpaceOnUse" x="-20" y="-20" width="140" height="140">
-<g fill="#fff"><circle cx="12" cy="62" r="6.5"/><circle cx="29" cy="62" r="6.5"/><circle cx="46" cy="62" r="6.5"/><path d="M58 68.5 A16 18 0 0 1 90 68.5 Z"/><path d="M87 58 C92 59 96 63 98 68.5 L85 68.5 Z"/><path d="M87 59 L89.5 52 L92 60 Z"/></g><g fill="#000"><path d="M68 48 V69 M74 48 V69 M80 48 V69" stroke="#000" stroke-width="2.4"/></g></mask>
-<rect x="-20" y="-20" width="140" height="140" fill="#ffffff" mask="url(#am)"/></g></svg><b>keydillo</b><p>keydillo is trying to use your OpenAI key for Claude Code.</p><svg class="tfp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M10.5 20v-7a1.5 1.5 0 0 1 3 0v4"/><path d="M7.5 18.5V13a4.5 4.5 0 0 1 9 0v2.5"/><path d="M16.5 18.5v-.5"/><path d="M4.5 15v-2a7.5 7.5 0 0 1 15 0v3"/><path d="M13.5 20.5v-.5"/><path d="M6.2 6.6A7.5 7.5 0 0 0 4.6 9"/><path d="M8.5 4.9A7.5 7.5 0 0 1 17.8 6.6"/></svg><small>Touch ID or enter your password</small><span class="b1">Use Password…</span><span>Cancel</span></div></div>
+<div class="demo"><img src="keydillo-demo.gif" width="1000" height="550" alt="Claude Code is asked to generate a voiceover, runs kd python voiceover.py, keydillo asks for Touch ID to use the ElevenLabs key, and the voiceover is saved"></div>
 
 <section class="feats"><div class="w"><div class="fg"><div><h3>No more .env files</h3><p>Import them once. Each key becomes a placeholder, so nothing secret sits in your project or git.</p></div><div><h3>Keys only go where they belong</h3><p>Each API key is sent only to its own host. A prompt injection can't send it anywhere else.</p></div><div><h3>See and stop every use</h3><p>Approve with Touch ID, see what's using a key right now, and end it in one click.</p></div><div><h3>Put <code>kd</code> in front</h3><p><code>kd npm run dev</code> runs your command through keydillo. Claude does it for you.</p></div><div><h3>All your keys in one place</h3><p>Grouped by project. Copy one out for Vercel or Fly, behind Touch ID.</p></div><div><h3>Free and local</h3><p>No account, no cloud, no telemetry. MIT licensed.</p></div></div></div></section>
 <section><div class="w">
