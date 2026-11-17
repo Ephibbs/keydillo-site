@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>keydillo docs</title>
+<meta name="description" content="How to set up keydillo and use it with Claude Code and your own commands.">
+<link rel="canonical" href="https://ephibbs.github.io/keydillo-site/docs.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%224.5%2030.5%2094.5%2094.5%22%3E%3Cg%20transform%3D%22translate%280%2C0%29%20scale%281%29%22%3E%0A%3Cmask%20id%3D%22f%22%20maskUnits%3D%22userSpaceOnUse%22%20x%3D%22-20%22%20y%3D%22-20%22%20width%3D%22140%22%20height%3D%22140%22%3E%0A%3Cg%20fill%3D%22%23fff%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2262%22%20r%3D%226.5%22/%3E%3Ccircle%20cx%3D%2229%22%20cy%3D%2262%22%20r%3D%226.5%22/%3E%3Ccircle%20cx%3D%2246%22%20cy%3D%2262%22%20r%3D%226.5%22/%3E%3Cpath%20d%3D%22M58%2068.5%20A16%2018%200%200%201%2090%2068.5%20Z%22/%3E%3Cpath%20d%3D%22M87%2058%20C92%2059%2096%2063%2098%2068.5%20L85%2068.5%20Z%22/%3E%3Cpath%20d%3D%22M87%2059%20L89.5%2052%20L92%2060%20Z%22/%3E%3C/g%3E%3Cg%20fill%3D%22%23000%22%3E%3Cpath%20d%3D%22M68%2048%20V69%20M74%2048%20V69%20M80%2048%20V69%22%20stroke%3D%22%23000%22%20stroke-width%3D%222.4%22/%3E%3C/g%3E%3C/mask%3E%0A%3Crect%20x%3D%22-20%22%20y%3D%22-20%22%20width%3D%22140%22%20height%3D%22140%22%20fill%3D%22%23111%22%20mask%3D%22url%28%23f%29%22/%3E%3C/g%3E%3C/svg%3E">
+<style>
+:root{--bg:#fff;--fg:#111;--muted:#737373;--line:#ebebeb;--fill:#f5f5f5}
+@media (prefers-color-scheme:dark){:root{--bg:#111;--fg:#f0f0f0;--muted:#8f8f8f;--line:#262626;--fill:#1b1b1b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 Inter,-apple-system,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.w{max-width:680px;margin:0 auto;padding:0 20px}
+nav .w{display:flex;align-items:center;height:72px;gap:24px;max-width:960px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:17px;letter-spacing:-.01em}
+.brand svg{height:13px;width:auto}
+nav .r{margin-left:auto;display:flex;gap:24px;font-size:15px;color:var(--muted)}
+nav .r a:hover{color:var(--fg)}
+.btn{display:inline-flex;align-items:center;height:44px;padding:0 22px;border-radius:999px;background:var(--fg);color:var(--bg);font-weight:500;font-size:15px}
+.btn.alt{background:var(--fill);color:var(--fg)}
+.btn.sm{height:36px;padding:0 16px;font-size:14px}
+.soon{color:var(--muted)}
+h3 code{font-size:14px}
+header{padding:120px 0 56px;text-align:center}
+header .mk{height:30px;width:auto;margin-bottom:40px}
+h1{font-size:clamp(36px,6vw,56px);line-height:1.08;letter-spacing:-.035em;font-weight:650;margin:0 0 20px}
+.sub{color:var(--muted);font-size:19px;margin:0 auto 36px;max-width:460px}
+.ctas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+code,pre{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:14px}
+.brew{margin-top:20px;color:var(--muted);font-size:14px}
+.brew code{color:var(--fg)}
+section{padding:72px 0}
+h2{font-size:28px;letter-spacing:-.025em;font-weight:620;margin:0 0 28px}
+ol{list-style:none;padding:0;margin:0;counter-reset:s}
+ol li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;padding:14px 0;border-top:1px solid var(--line)}
+ol li:before{content:counter(s);color:var(--muted)}
+ol li:last-child{border-bottom:1px solid var(--line)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+h3{font-size:15px;font-weight:600;margin:0 0 10px}
+ul{list-style:none;padding:0;margin:0}
+ul li{padding:6px 0;color:var(--muted)}
+.inst li{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:16px 0;border-top:1px solid var(--line);color:var(--fg)}
+.inst li:last-child{border-bottom:1px solid var(--line)}
+.inst code{color:var(--muted);text-align:right}
+details{border-top:1px solid var(--line);padding:16px 0}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;font-weight:500}
+summary::-webkit-details-marker{display:none}
+details p{color:var(--muted);margin:8px 0 0}
+footer{padding:56px 0 64px;color:var(--muted);font-size:14px}
+footer .w{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+footer .brand{font-size:15px;color:var(--fg)}
+footer .brand svg{height:11px}
+
+.shot{max-width:400px;margin:0 auto;padding:0 20px 40px}
+.tdlg{width:272px;margin:28px auto 0;background:#ededed;border-radius:14px;padding:22px 18px 16px;text-align:center;color:#111;font-family:-apple-system,"SF Pro Text",Inter,sans-serif;box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 26px 60px -20px rgba(0,0,0,.4)}
+.tdlg .appi{width:64px;height:64px;display:block;margin:0 auto 10px}
+.tdlg b{display:block;font-size:14px;font-weight:700}
+.tdlg p{font-size:12px;line-height:1.4;margin:6px 0 14px;color:#222}
+.tdlg .tfp{width:46px;height:46px;color:#ff375f;display:block;margin:0 auto 8px}
+.tdlg small{display:block;font-size:12px;color:#555;margin-bottom:14px}
+.tdlg span{display:block;height:28px;line-height:28px;border-radius:7px;background:#fff;font-size:13px;margin-top:8px;box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 1px rgba(0,0,0,.06)}
+.mbar{display:flex;justify-content:flex-end;align-items:center;gap:16px;height:28px;padding:0 14px;font-size:13px;color:#1a1a1a;background:rgba(235,235,235,.9);border-radius:10px}
+.mbar .mbi{height:11px;width:auto;color:#111}
+.mbar .on{background:rgba(0,0,0,.1);border-radius:5px;padding:3px 6px;display:flex}
+.pop{background:#fff;color:#0d0d0d;border:1px solid #dedede;border-radius:16px;margin-top:6px;box-shadow:0 24px 60px -28px rgba(0,0,0,.35);overflow:hidden;font-family:-apple-system,"SF Pro Text",Inter,sans-serif;text-align:left}
+.pop .hd{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 10px;font-weight:600;font-size:16px}
+.pop .st{font-weight:400;font-size:12px;color:#676767;display:flex;align-items:center;gap:6px}
+.pop .st i{width:7px;height:7px;border-radius:4px;background:#1e8e3e}
+.pop .req{margin:0 12px 14px;background:#f4f4f4;border-radius:18px;padding:14px}
+.pop .req b{display:block;font-size:14px}
+.pop .req small{display:block;font-size:12px;color:#676767;margin:3px 0 12px}
+.pop .bt{display:flex;gap:6px}
+.pop .bt span{height:34px;padding:0 14px;border-radius:17px;border:1px solid #dcdcdc;background:#fff;font-size:13px;display:flex;align-items:center}
+.pop .bt span.p{flex:1;justify-content:center;background:#0d0d0d;color:#fff;border:0;font-weight:500}
+.pop .req{text-align:center;padding:20px 14px 14px}
+.pop .tid{width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:#fff;border:1px solid #e3e3e3;display:grid;place-items:center;color:#0d0d0d}
+.pop .fpbig{width:38px;height:38px}
+.pop .fpsm{width:16px;height:16px;margin-right:7px}
+.pop .bt span.p{gap:0}
+.pop .lb{font-size:12px;color:#676767;padding:0 16px 4px}
+.pop .row{display:flex;justify-content:space-between;align-items:center;padding:10px 18px}
+.pop .row b{font-size:13px;font-weight:500;display:block}.pop .row small{font-size:12px;color:#676767}
+.pop .row span{height:28px;padding:0 12px;border-radius:14px;border:1px solid #dcdcdc;font-size:12px;display:flex;align-items:center}
+.pop .ft{border-top:1px solid #ededed;margin-top:8px;padding:8px 16px 12px;font-size:13px;line-height:2.2}
+.feats{padding:24px 0 40px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:28px 40px}
+.fg h3{margin:0 0 4px;font-size:16px}.fg p{margin:0;color:var(--muted);font-size:15px}
+.fg code{font-size:13px}
+@media (max-width:600px){.fg{grid-template-columns:1fr;gap:22px}header{padding:72px 0 64px}.cols{grid-template-columns:1fr;gap:28px}.inst li{flex-direction:column;align-items:flex-start;gap:4px}.inst code{text-align:left}nav .r a.h{display:none}}
+
+.doc{display:grid;grid-template-columns:180px 1fr;gap:56px;max-width:960px;margin:0 auto;padding:40px 20px 40px}
+.toc{position:sticky;top:24px;align-self:start;font-size:14px}
+.toc a{display:block;padding:5px 0;color:var(--muted)}.toc a:hover{color:var(--fg)}
+.doc main{min-width:0}
+.doc h1{font-size:40px;margin:0 0 12px;text-align:left}
+.doc .lead{color:var(--muted);margin:0 0 8px}
+.doc section{padding:40px 0 0}
+.doc h2{font-size:24px;margin:0 0 14px;scroll-margin-top:24px}
+.doc p{margin:0 0 14px}
+.doc ul.b{list-style:disc;padding-left:20px;margin:0 0 14px}.doc ul.b li{padding:3px 0;color:var(--fg)}
+.doc ol.n{list-style:decimal;padding-left:20px;margin:0 0 14px;counter-reset:none}.doc ol.n li{display:list-item;padding:3px 0;border:0}
+.doc ol.n li:before{content:none}
+pre{background:var(--fill);border-radius:12px;padding:14px 16px;overflow-x:auto;margin:0 0 14px;line-height:1.5}
+p code,li code,td code{background:var(--fill);border-radius:5px;padding:1px 5px;font-size:13.5px}
+table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:15px}
+td,th{text-align:left;vertical-align:top;padding:10px 12px 10px 0;border-top:1px solid var(--line)}
+th{font-weight:600;font-size:14px;border-top:0}
+td:first-child{white-space:nowrap}
+.note{color:var(--muted);font-size:15px}
+@media (max-width:760px){.doc{grid-template-columns:1fr;gap:8px}.toc{position:static;display:flex;flex-wrap:wrap;gap:4px 16px}.doc h1{font-size:34px}td:first-child{white-space:normal}}
+</style></head>
+<body>
+<nav><div class="w"><a class="brand" href="./"><svg class="mk" viewBox="4.5 49.5 94.5 20.0" aria-hidden="true"><g transform="translate(0,0) scale(1)">
+<mask id="k1" maskUnits="userSpaceOnUse" x="-20" y="-20" width="140" height="140">
+<g fill="#fff"><circle cx="12" cy="62" r="6.5"/><circle cx="29" cy="62" r="6.5"/><circle cx="46" cy="62" r="6.5"/><path d="M58 68.5 A16 18 0 0 1 90 68.5 Z"/><path d="M87 58 C92 59 96 63 98 68.5 L85 68.5 Z"/><path d="M87 59 L89.5 52 L92 60 Z"/></g><g fill="#000"><path d="M68 48 V69 M74 48 V69 M80 48 V69" stroke="#000" stroke-width="2.4"/></g></mask>
+<rect x="-20" y="-20" width="140" height="140" fill="currentColor" mask="url(#k1)"/></g></svg>keydillo</a>
+<div class="r"><a class="h" href="./#faq">FAQ</a><a href="docs.html">Docs</a><a href="https://github.com/Ephibbs/keydillo">GitHub</a></div></div></nav>
+<div class="doc">
+<aside class="toc">
+<a href="#install">Install</a>
+<a href="#kd">Using kd</a>
+<a href="#placeholders">Placeholders</a>
+<a href="#import">Importing .env files</a>
+<a href="#approval">Touch ID and approval</a>
+<a href="#projects">Projects and folders</a>
+<a href="#launch">Launch-time keys</a>
+<a href="#cli">CLI</a>
+<a href="#mcp">Claude Code tools</a>
+<a href="#errors">Errors</a>
+<a href="#limits">What doesn't work yet</a>
+<a href="#off">Turning it off</a>
+</aside>
+<main>
+<h1>Docs</h1>
+<p class="lead">How to set up keydillo and use it with Claude Code and your own commands.</p>
+
+<section id="install">
+<h2>Install</h2>
+<p>A signed, notarized download is coming soon. Until then, build it from source. You need macOS 15 or later, Xcode 16, <a href="https://github.com/yonaskolb/XcodeGen"><u>XcodeGen</u></a> and an Apple Developer account.</p>
+<pre><code>git clone https://github.com/Ephibbs/keydillo
+cd keydillo/App
+# set DEVELOPMENT_TEAM in project.yml to your team ID
+xcodegen
+open Keydillo.xcodeproj</code></pre>
+<p>Keys are stored in a private Keychain group tied to your team, so the Mac you build on must be registered in your developer account. Builds without that group refuse to store keys.</p>
+<p>On first launch, setup asks how often to use Touch ID, then offers to connect Claude Code. Connect installs <code>kd</code> in <code>~/.local/bin</code>, next to <code>claude</code>, and tells Claude how to use keydillo. You can also install the Claude Code plugin:</p>
+<pre><code>/plugin marketplace add Ephibbs/keydillo
+/plugin install keydillo@keydillo</code></pre>
+</section>
+
+<section id="kd">
+<h2>Using kd</h2>
+<p>Put <code>kd</code> in front of commands that use your keys. Claude does it for you.</p>
+<pre><code>kd npm run dev
+kd python script.py</code></pre>
+<p><code>kd</code> is short for <code>keydillo run --</code>. It runs the command with its HTTPS going through a small proxy that only that command and its child processes can use. When the program sends a <code>keydillo:&lt;name&gt;</code> placeholder to its API, keydillo asks for Touch ID and swaps in the real key. Everything else passes through untouched, still encrypted.</p>
+<ul class="b">
+<li>Nothing is routed without <code>kd</code>.</li>
+<li>If keydillo isn't running, <code>kd</code> opens it in the background, unless you quit it yourself from the menu.</li>
+<li>Tested with curl, Python (<code>requests</code>, <code>httpx</code>, <code>aiohttp</code>, <code>urllib</code>), Node (<code>fetch</code>, <code>https</code>, <code>undici</code>, axios), Bun and Deno.</li>
+</ul>
+</section>
+
+<section id="placeholders">
+<h2>Placeholders and the local proxy</h2>
+<p>Each key gets a placeholder and a local base URL. <code>keydillo env &lt;name&gt;</code> prints the lines for your <code>.env</code>:</p>
+<pre><code>OPENAI_BASE_URL=http://localhost:7787/openai/v1
+OPENAI_API_KEY=keydillo:openai</code></pre>
+<p>Programs run with <code>kd</code> can keep calling the real host with the placeholder. Programs that can't use <code>kd</code> can call the base URL instead, with no key: <code>http://localhost:7787/&lt;name&gt;/...</code>. keydillo adds the key on the way out.</p>
+<ul class="b">
+<li>A key is only ever sent to its own host. If a key has no host yet, keydillo locks it to the host the first time a program uses it, after you approve with Touch ID.</li>
+<li>The key goes only in its configured spot, usually one header. A placeholder found in the body, query or path is refused unless you turn on "Allow the key anywhere" for that key.</li>
+<li>keydillo removes the key from responses before they reach the program.</li>
+<li>Web pages can't use keydillo. Cross-site browser requests are refused.</li>
+<li>The default port is 7787.</li>
+</ul>
+<p>In your code, read the base URL from its env var and fall back to the real host when it's unset, so production works with a real key set in your host's settings.</p>
+</section>
+
+<section id="import">
+<h2>Importing .env files</h2>
+<p>keydillo can bring in keys from your existing <code>.env</code> files. It imports values whose names look like secrets (<code>KEY</code>, <code>SECRET</code>, <code>TOKEN</code> and similar), rewrites each with a placeholder, and leaves values like <code>PORT</code> alone. It reads <code>.env</code>, <code>.env.*</code> and <code>.dev.vars</code>.</p>
+<p>Each import saves a copy of the original files in keydillo's private Keychain group, so you can put them back later.</p>
+<p>Keys meant to ship to browsers, like a Stripe <code>pk_</code> key, a Supabase anon key or <code>NEXT_PUBLIC_*</code> values, don't need keydillo.</p>
+</section>
+
+<section id="approval">
+<h2>Touch ID and approval</h2>
+<p>You choose the default in setup and can change it in Settings, or per project on the project's page.</p>
+<table>
+<tr><th>Setting</th><th>What it does</th></tr>
+<tr><td>Every time</td><td>Touch ID for every request that uses a key.</td></tr>
+<tr><td>Once per session</td><td>The default. Touch ID once, then the same program can keep using the key until it exits.</td></tr>
+<tr><td>Ask once per project</td><td>After one Touch ID, any program run from the project's folder, not just Claude, can use its keys until keydillo quits, even while the Mac is locked. Turning it on needs Touch ID. Use it only for projects whose keys can't cost much.</td></tr>
+</table>
+<p>The prompt names the key and the program asking for it. macOS lets your login password stand in for Touch ID.</p>
+<p>While the Mac is locked, keys can't be read and requests get a clear "Mac is locked" reply, except for projects set to Ask once per project.</p>
+</section>
+
+<section id="projects">
+<h2>Projects and folders</h2>
+<p>Keys are grouped by project. A project's folder is how keydillo knows which keys a program in that folder should use. Keys you add from Claude Code are filed under the current folder's name.</p>
+<p>A project without a folder can still hold keys and change its Touch ID setting, but Ask once per project needs a folder. Use <b>Set folder…</b> on the project's page, which asks for Touch ID. Your Home, Desktop and Documents folders can't be project folders.</p>
+<p>To copy a project's keys out for Vercel or Fly, use the Readout in the app, behind Touch ID. Copied text clears from the clipboard after 30 seconds.</p>
+</section>
+
+<section id="launch">
+<h2>Launch-time keys</h2>
+<p>Some secrets your app uses itself and never sends to an API: database URLs, JWT, session, encryption and webhook signing keys, and request-signing keys like AWS. keydillo can store these as launch-time keys. Your <code>.env</code> keeps a placeholder, and <code>kd</code> gives the real value to the program as it starts, after approval.</p>
+<p>They are not fully hidden. The running program can see them, so a command that prints its environment could reveal them. They're unticked at import; tick the ones you want.</p>
+<p class="note">Planned: a local database proxy so passwords never enter the program, then signing and encryption keys. See the <a href="https://github.com/Ephibbs/keydillo/blob/main/docs/roadmap.md"><u>roadmap</u></a>.</p>
+</section>
+
+<section id="cli">
+<h2>CLI</h2>
+<table>
+<tr><td><code>kd &lt;command&gt;</code></td><td>Run a command through keydillo. Same as <code>keydillo run -- &lt;command&gt;</code>.</td></tr>
+<tr><td><code>keydillo list</code></td><td>Stored keys: names, local URLs, hosts and projects. Never values.</td></tr>
+<tr><td><code>keydillo add &lt;name&gt; --host &lt;host&gt; --header &lt;header&gt;</code></td><td>Opens keydillo so you can paste the key. Options: <code>--prefix "Bearer "</code>, <code>--env NAME</code>, <code>--project P</code>.</td></tr>
+<tr><td><code>keydillo env &lt;name&gt;</code></td><td>Print the placeholder <code>.env</code> lines for a key.</td></tr>
+<tr><td><code>keydillo mcp</code></td><td>Run as an MCP server. Claude Code uses this.</td></tr>
+</table>
+<p>There is no command to print a key, and keys are never passed on the command line, where they'd end up in shell history.</p>
+</section>
+
+<section id="mcp">
+<h2>Claude Code tools</h2>
+<p>When connected, Claude gets these tools. None of them return a key.</p>
+<table>
+<tr><td><code>status</code></td><td>Whether the proxy is up, which keys exist, and recent refusals with reasons.</td></tr>
+<tr><td><code>list_services</code></td><td>Keys with their local base URLs and env var names.</td></tr>
+<tr><td><code>request_secret</code></td><td>Opens a window on your Mac to add a key. Returns the base URL and placeholder lines.</td></tr>
+<tr><td><code>request_key_change</code></td><td>Asks you to approve a change: how the key is sent, sharing it with another project, rotating it, or moving a project's folder.</td></tr>
+<tr><td><code>open_project</code></td><td>Asks you to approve all of a project's keys with one Touch ID. How long it lasts is your setting.</td></tr>
+</table>
+<p>keydillo also adds Claude Code hooks. Before a command, it stops programs run without <code>kd</code> in a keydillo project. After a command, it explains provider errors caused by a placeholder. These hooks guide Claude; they aren't a security barrier.</p>
+</section>
+
+<section id="errors">
+<h2>Errors</h2>
+<p>Requests keydillo refuses get JSON with <code>error</code>, <code>code</code> and <code>hint</code>.</p>
+<table>
+<tr><th>Code</th><th>Meaning</th></tr>
+<tr><td><code>denied</code></td><td>You declined the request.</td></tr>
+<tr><td><code>approval_unavailable</code></td><td>The Mac is locked or Touch ID isn't possible right now.</td></tr>
+<tr><td><code>unknown_service</code></td><td>No key with that name is stored.</td></tr>
+<tr><td><code>needs_host</code></td><td>The key has no host yet. Run the program with <code>kd</code> so you can approve one.</td></tr>
+<tr><td><code>host_not_allowed</code></td><td>You didn't allow sending the key to that host.</td></tr>
+<tr><td><code>placeholder_misplaced</code></td><td>The placeholder was in the body, query or path instead of the key's spot.</td></tr>
+<tr><td><code>launch_time_key</code></td><td>That key is given to programs as they start, not sent in requests. Use <code>kd</code>.</td></tr>
+<tr><td><code>path_not_allowed</code></td><td>The key isn't allowed for that method or path.</td></tr>
+<tr><td><code>rate_limited</code></td><td>The key's hourly limit was reached.</td></tr>
+<tr><td><code>browser_blocked</code></td><td>The request came from a web page.</td></tr>
+<tr><td><code>key_unavailable</code></td><td>The key couldn't be read from the Keychain.</td></tr>
+<tr><td><code>upstream_failed</code></td><td>The provider couldn't be reached.</td></tr>
+</table>
+<p>If an API says the key is invalid, the program skipped keydillo. Run it with <code>kd</code>, or call the key's base URL.</p>
+</section>
+
+<section id="limits">
+<h2>What doesn't work yet</h2>
+<ul class="b">
+<li>Under <code>kd</code>: Go and Rust programs (they ignore the extra certificate), gRPC, Next.js edge middleware, Python run with <code>-I</code>, and programs started with a cleaned environment. Call the base URL instead.</li>
+<li>Docker: containers started with <code>--env-file</code> don't go through <code>kd</code>. Use <code>http://host.docker.internal:7787/&lt;name&gt;</code> as the base URL.</li>
+<li>Programs not started with <code>kd</code>, like IDE run buttons or cron jobs.</li>
+<li>Background processes that detach right away (pm2, tmux) lose access when <code>kd</code> exits.</li>
+<li>Some SDKs check a key's exact format at startup (Clerk, for example) and reject the placeholder.</li>
+</ul>
+<p class="note">Full list with fixes: <a href="https://github.com/Ephibbs/keydillo/blob/main/docs/kd-known-failures.md"><u>where kd can fail</u></a>. Security model and limits: <a href="https://github.com/Ephibbs/keydillo#security-model-and-limits"><u>README</u></a>. Report vulnerabilities privately: <a href="https://github.com/Ephibbs/keydillo/blob/main/SECURITY.md"><u>SECURITY.md</u></a>.</p>
+</section>
+
+<section id="off">
+<h2>Turning it off</h2>
+<p>Quit keydillo from the menu bar to stop all key use. To stop using it, choose <b>Put my real keys back</b> in the menu bar or Settings and confirm with Touch ID. It restores your <code>.env</code> files, for one project or all of them.</p>
+<p>Settings also has <b>Uninstall keydillo…</b>, which can put the real keys back first, delete your keys from the Keychain, remove keydillo from Claude Code and stop it starting at login.</p>
+</section>
+</main>
+</div>
+
+<footer><div class="w"><a class="brand" href="./"><svg class="mk" viewBox="4.5 49.5 94.5 20.0" aria-hidden="true"><g transform="translate(0,0) scale(1)">
+<mask id="k2" maskUnits="userSpaceOnUse" x="-20" y="-20" width="140" height="140">
+<g fill="#fff"><circle cx="12" cy="62" r="6.5"/><circle cx="29" cy="62" r="6.5"/><circle cx="46" cy="62" r="6.5"/><path d="M58 68.5 A16 18 0 0 1 90 68.5 Z"/><path d="M87 58 C92 59 96 63 98 68.5 L85 68.5 Z"/><path d="M87 59 L89.5 52 L92 60 Z"/></g><g fill="#000"><path d="M68 48 V69 M74 48 V69 M80 48 V69" stroke="#000" stroke-width="2.4"/></g></mask>
+<rect x="-20" y="-20" width="140" height="140" fill="currentColor" mask="url(#k2)"/></g></svg>keydillo</a><a href="https://github.com/Ephibbs/keydillo">GitHub</a><span>MIT license</span><a href="https://github.com/Ephibbs/keydillo/security/advisories/new">Report a vulnerability</a><span style="margin-left:auto">No cookies, no tracking.</span></div></footer>
+</body></html>
