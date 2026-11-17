@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>keydillo</title>
+<meta name="description" content="Let AI use your keys without seeing them. Free, open-source Mac app.">
+<meta property="og:title" content="keydillo">
+<meta property="og:description" content="Let AI use your keys without seeing them. Free, open-source Mac app.">
+<meta property="og:image" content="https://ephibbs.github.io/keydillo-site/og.png">
+<meta property="og:url" content="https://ephibbs.github.io/keydillo-site/">
+<link rel="canonical" href="https://ephibbs.github.io/keydillo-site/">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%224.5%2030.5%2094.5%2094.5%22%3E%3Cg%20transform%3D%22translate%280%2C0%29%20scale%281%29%22%3E%0A%3Cmask%20id%3D%22f%22%20maskUnits%3D%22userSpaceOnUse%22%20x%3D%22-20%22%20y%3D%22-20%22%20width%3D%22140%22%20height%3D%22140%22%3E%0A%3Cg%20fill%3D%22%23fff%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2262%22%20r%3D%226.5%22/%3E%3Ccircle%20cx%3D%2229%22%20cy%3D%2262%22%20r%3D%226.5%22/%3E%3Ccircle%20cx%3D%2246%22%20cy%3D%2262%22%20r%3D%226.5%22/%3E%3Cpath%20d%3D%22M58%2068.5%20A16%2018%200%200%201%2090%2068.5%20Z%22/%3E%3Cpath%20d%3D%22M87%2058%20C92%2059%2096%2063%2098%2068.5%20L85%2068.5%20Z%22/%3E%3Cpath%20d%3D%22M87%2059%20L89.5%2052%20L92%2060%20Z%22/%3E%3C/g%3E%3Cg%20fill%3D%22%23000%22%3E%3Cpath%20d%3D%22M68%2048%20V69%20M74%2048%20V69%20M80%2048%20V69%22%20stroke%3D%22%23000%22%20stroke-width%3D%222.4%22/%3E%3C/g%3E%3C/mask%3E%0A%3Crect%20x%3D%22-20%22%20y%3D%22-20%22%20width%3D%22140%22%20height%3D%22140%22%20fill%3D%22%23111%22%20mask%3D%22url%28%23f%29%22/%3E%3C/g%3E%3C/svg%3E">
+<style>
+:root{--bg:#fff;--fg:#111;--muted:#737373;--line:#ebebeb;--fill:#f5f5f5}
+@media (prefers-color-scheme:dark){:root{--bg:#111;--fg:#f0f0f0;--muted:#8f8f8f;--line:#262626;--fill:#1b1b1b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 Inter,-apple-system,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.w{max-width:680px;margin:0 auto;padding:0 20px}
+nav .w{display:flex;align-items:center;height:72px;gap:24px;max-width:960px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:17px;letter-spacing:-.01em}
+.brand svg{height:13px;width:auto}
+nav .r{margin-left:auto;display:flex;gap:24px;font-size:15px;color:var(--muted)}
+nav .r a:hover{color:var(--fg)}
+.btn{display:inline-flex;align-items:center;height:44px;padding:0 22px;border-radius:999px;background:var(--fg);color:var(--bg);font-weight:500;font-size:15px}
+.btn.alt{background:var(--fill);color:var(--fg)}
+.btn.sm{height:36px;padding:0 16px;font-size:14px}
+.soon{color:var(--muted)}
+h3 code{font-size:14px}
+header{padding:120px 0 56px;text-align:center}
+header .mk{height:30px;width:auto;margin-bottom:40px}
+h1{font-size:clamp(36px,6vw,56px);line-height:1.08;letter-spacing:-.035em;font-weight:650;margin:0 0 20px}
+.sub{color:var(--muted);font-size:19px;margin:0 auto 36px;max-width:460px}
+.ctas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+code,pre{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:14px}
+.brew{margin-top:20px;color:var(--muted);font-size:14px}
+.brew code{color:var(--fg)}
+section{padding:72px 0}
+h2{font-size:28px;letter-spacing:-.025em;font-weight:620;margin:0 0 28px}
+ol{list-style:none;padding:0;margin:0;counter-reset:s}
+ol li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;padding:14px 0;border-top:1px solid var(--line)}
+ol li:before{content:counter(s);color:var(--muted)}
+ol li:last-child{border-bottom:1px solid var(--line)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+h3{font-size:15px;font-weight:600;margin:0 0 10px}
+ul{list-style:none;padding:0;margin:0}
+ul li{padding:6px 0;color:var(--muted)}
+.inst li{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:16px 0;border-top:1px solid var(--line);color:var(--fg)}
+.inst li:last-child{border-bottom:1px solid var(--line)}
+.inst code{color:var(--muted);text-align:right}
+details{border-top:1px solid var(--line);padding:16px 0}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;font-weight:500}
+summary::-webkit-details-marker{display:none}
+details p{color:var(--muted);margin:8px 0 0}
+footer{padding:56px 0 64px;color:var(--muted);font-size:14px}
+footer .w{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+footer .brand{font-size:15px;color:var(--fg)}
+footer .brand svg{height:11px}
+
+.shot{max-width:400px;margin:0 auto;padding:0 20px 40px}
+.tdlg{width:272px;margin:28px auto 0;background:#ededed;border-radius:14px;padding:22px 18px 16px;text-align:center;color:#111;font-family:-apple-system,"SF Pro Text",Inter,sans-serif;box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 26px 60px -20px rgba(0,0,0,.4)}
+.tdlg .appi{width:64px;height:64px;display:block;margin:0 auto 10px}
+.tdlg b{display:block;font-size:14px;font-weight:700}
+.tdlg p{font-size:12px;line-height:1.4;margin:6px 0 14px;color:#222}
+.tdlg .tfp{width:46px;height:46px;color:#ff375f;display:block;margin:0 auto 8px}
+.tdlg small{display:block;font-size:12px;color:#555;margin-bottom:14px}
+.tdlg span{display:block;height:28px;line-height:28px;border-radius:7px;background:#fff;font-size:13px;margin-top:8px;box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 1px rgba(0,0,0,.06)}
+.mbar{display:flex;justify-content:flex-end;align-items:center;gap:16px;height:28px;padding:0 14px;font-size:13px;color:#1a1a1a;background:rgba(235,235,235,.9);border-radius:10px}
+.mbar .mbi{height:11px;width:auto;color:#111}
+.mbar .on{background:rgba(0,0,0,.1);border-radius:5px;padding:3px 6px;display:flex}
+.pop{background:#fff;color:#0d0d0d;border:1px solid #dedede;border-radius:16px;margin-top:6px;box-shadow:0 24px 60px -28px rgba(0,0,0,.35);overflow:hidden;font-family:-apple-system,"SF Pro Text",Inter,sans-serif;text-align:left}
+.pop .hd{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 10px;font-weight:600;font-size:16px}
+.pop .st{font-weight:400;font-size:12px;color:#676767;display:flex;align-items:center;gap:6px}
+.pop .st i{width:7px;height:7px;border-radius:4px;background:#1e8e3e}
+.pop .req{margin:0 12px 14px;background:#f4f4f4;border-radius:18px;padding:14px}
+.pop .req b{display:block;font-size:14px}
+.pop .req small{display:block;font-size:12px;color:#676767;margin:3px 0 12px}
+.pop .bt{display:flex;gap:6px}
+.pop .bt span{height:34px;padding:0 14px;border-radius:17px;border:1px solid #dcdcdc;background:#fff;font-size:13px;display:flex;align-items:center}
+.pop .bt span.p{flex:1;justify-content:center;background:#0d0d0d;color:#fff;border:0;font-weight:500}
+.pop .req{text-align:center;padding:20px 14px 14px}
+.pop .tid{width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:#fff;border:1px solid #e3e3e3;display:grid;place-items:center;color:#0d0d0d}
+.pop .fpbig{width:38px;height:38px}
+.pop .fpsm{width:16px;height:16px;margin-right:7px}
+.pop .bt span.p{gap:0}
+.pop .lb{font-size:12px;color:#676767;padding:0 16px 4px}
+.pop .row{display:flex;justify-content:space-between;align-items:center;padding:10px 18px}
+.pop .row b{font-size:13px;font-weight:500;display:block}.pop .row small{font-size:12px;color:#676767}
+.pop .row span{height:28px;padding:0 12px;border-radius:14px;border:1px solid #dcdcdc;font-size:12px;display:flex;align-items:center}
+.pop .ft{border-top:1px solid #ededed;margin-top:8px;padding:8px 16px 12px;font-size:13px;line-height:2.2}
+.feats{padding:24px 0 40px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:28px 40px}
+.fg h3{margin:0 0 4px;font-size:16px}.fg p{margin:0;color:var(--muted);font-size:15px}
+.fg code{font-size:13px}
+@media (max-width:600px){.fg{grid-template-columns:1fr;gap:22px}header{padding:72px 0 64px}.cols{grid-template-columns:1fr;gap:28px}.inst li{flex-direction:column;align-items:flex-start;gap:4px}.inst code{text-align:left}nav .r a.h{display:none}}
+</style></head>
+<body>
+<nav><div class="w"><a class="brand" href="#"><svg class="mk" viewBox="4.5 49.5 94.5 20.0" aria-hidden="true"><g transform="translate(0,0) scale(1)">
+<mask id="k1" maskUnits="userSpaceOnUse" x="-20" y="-20" width="140" height="140">
+<g fill="#fff"><circle cx="12" cy="62" r="6.5"/><circle cx="29" cy="62" r="6.5"/><circle cx="46" cy="62" r="6.5"/><path d="M58 68.5 A16 18 0 0 1 90 68.5 Z"/><path d="M87 58 C92 59 96 63 98 68.5 L85 68.5 Z"/><path d="M87 59 L89.5 52 L92 60 Z"/></g><g fill="#000"><path d="M68 48 V69 M74 48 V69 M80 48 V69" stroke="#000" stroke-width="2.4"/></g></mask>
+<rect x="-20" y="-20" width="140" height="140" fill="currentColor" mask="url(#k1)"/></g></svg>keydillo</a>
+<div class="r"><a class="h" href="#faq">FAQ</a><a href="https://github.com/Ephibbs/keydillo">GitHub</a></div></div></nav>
+
+<header><div class="w">
+<svg class="mk" viewBox="4.5 49.5 94.5 20.0" aria-hidden="true"><g transform="translate(0,0) scale(1)">
+<mask id="kb" maskUnits="userSpaceOnUse" x="-20" y="-20" width="140" height="140">
+<g fill="#fff"><circle cx="12" cy="62" r="6.5"/><circle cx="29" cy="62" r="6.5"/><circle cx="46" cy="62" r="6.5"/><path d="M58 68.5 A16 18 0 0 1 90 68.5 Z"/><path d="M87 58 C92 59 96 63 98 68.5 L85 68.5 Z"/><path d="M87 59 L89.5 52 L92 60 Z"/></g><g fill="#000"><path d="M68 48 V69 M74 48 V69 M80 48 V69" stroke="#000" stroke-width="2.4"/></g></mask>
+<rect x="-20" y="-20" width="140" height="140" fill="currentColor" mask="url(#kb)"/></g></svg>
+<h1>Let AI use your keys without seeing them</h1>
+<p class="sub">Get set up in seconds and forget about it.</p>
+<div class="ctas"><a class="btn" href="#install">Get keydillo</a><a class="btn alt" href="https://github.com/Ephibbs/keydillo">GitHub</a></div>
+</div></header>
+<div class="shot" aria-label="The macOS Touch ID window asking to let Claude Code use an OpenAI key">
+<div class="mbar"><span>Wi‑Fi</span><span class="on"><svg class="mbi" viewBox="4.5 49.5 94.5 20.0" aria-hidden="true"><g transform="translate(0,0) scale(1)">
+<mask id="kmb" maskUnits="userSpaceOnUse" x="-20" y="-20" width="140" height="140">
+<g fill="#fff"><circle cx="12" cy="62" r="6.5"/><circle cx="29" cy="62" r="6.5"/><circle cx="46" cy="62" r="6.5"/><path d="M58 68.5 A16 18 0 0 1 90 68.5 Z"/><path d="M87 58 C92 59 96 63 98 68.5 L85 68.5 Z"/><path d="M87 59 L89.5 52 L92 60 Z"/></g><g fill="#000"><path d="M68 48 V69 M74 48 V69 M80 48 V69" stroke="#000" stroke-width="2.4"/></g></mask>
+<rect x="-20" y="-20" width="140" height="140" fill="currentColor" mask="url(#kmb)"/></g></svg></span><span>Mon 6:45 PM</span></div>
+<div class="tdlg"><svg class="appi" viewBox="80 80 864 864" aria-hidden="true"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2b2b"/><stop offset="1" stop-color="#0b0b0b"/></linearGradient></defs>
+<rect x="100" y="100" width="824" height="824" rx="185" fill="url(#ag)"/>
+<rect x="101.5" y="101.5" width="821" height="821" rx="183.5" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="3"/>
+<g transform="translate(246.6153846153846,206.8717948717948) scale(5.128205128205129)">
+<mask id="am" maskUnits="userSpaceOnUse" x="-20" y="-20" width="140" height="140">
+<g fill="#fff"><circle cx="12" cy="62" r="6.5"/><circle cx="29" cy="62" r="6.5"/><circle cx="46" cy="62" r="6.5"/><path d="M58 68.5 A16 18 0 0 1 90 68.5 Z"/><path d="M87 58 C92 59 96 63 98 68.5 L85 68.5 Z"/><path d="M87 59 L89.5 52 L92 60 Z"/></g><g fill="#000"><path d="M68 48 V69 M74 48 V69 M80 48 V69" stroke="#000" stroke-width="2.4"/></g></mask>
+<rect x="-20" y="-20" width="140" height="140" fill="#ffffff" mask="url(#am)"/></g></svg><b>keydillo</b><p>keydillo is trying to use your OpenAI key for Claude Code.</p><svg class="tfp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M10.5 20v-7a1.5 1.5 0 0 1 3 0v4"/><path d="M7.5 18.5V13a4.5 4.5 0 0 1 9 0v2.5"/><path d="M16.5 18.5v-.5"/><path d="M4.5 15v-2a7.5 7.5 0 0 1 15 0v3"/><path d="M13.5 20.5v-.5"/><path d="M6.2 6.6A7.5 7.5 0 0 0 4.6 9"/><path d="M8.5 4.9A7.5 7.5 0 0 1 17.8 6.6"/></svg><small>Touch ID or enter your password</small><span class="b1">Use Password…</span><span>Cancel</span></div></div>
+
+<section class="feats"><div class="w"><div class="fg"><div><h3>No more .env files</h3><p>Import them once. Each key becomes a placeholder, so nothing secret sits in your project or git.</p></div><div><h3>Keys only go where they belong</h3><p>Each key is sent only to its own host. A prompt injection can't send it anywhere else.</p></div><div><h3>See and stop every use</h3><p>Approve with Touch ID, see what's using a key right now, and end it in one click.</p></div><div><h3>Put <code>kd</code> in front</h3><p><code>kd npm run dev</code> runs your command through keydillo. Claude does it for you.</p></div><div><h3>All your keys in one place</h3><p>Grouped by project. Copy one out for Vercel or Fly, behind Touch ID.</p></div><div><h3>Free and local</h3><p>No account, no cloud, no telemetry. MIT licensed.</p></div></div></div></section>
+<section><div class="w">
+<h2>How it works</h2>
+<ol>
+<li><span>Paste a key into keydillo.</span></li>
+<li><span>Connect Claude Code. It only ever gets a placeholder, and puts <code>kd</code> in front of commands that use it.</span></li>
+<li><span>Approve with Touch ID. keydillo sends the real key, only to that key's host.</span></li>
+</ol>
+</div></section>
+
+<section><div class="w">
+<h2>Security</h2>
+<div class="cols">
+<div><h3>Protects</h3><ul>
+<li>Keys out of prompts and transcripts</li>
+<li>Keys at rest, behind Touch ID</li>
+<li>Keys sent to the wrong host</li>
+</ul></div>
+<div><h3>Doesn't protect</h3><ul>
+<li>What an agent does with access you approve</li>
+<li>Copies made before you installed it</li>
+<li>A Mac that's already compromised</li>
+</ul></div>
+</div>
+</div></section>
+
+<section id="install"><div class="w">
+<h2>Install</h2>
+<ul class="inst">
+<li><span>Download <small class="soon">· coming soon</small></span><a class="btn alt sm" href="https://github.com/Ephibbs/keydillo/releases">Releases</a></li>
+<li><span>Homebrew <small class="soon">· coming soon</small></span><code>brew install --cask keydillo</code></li>
+<li><span>Claude Code plugin</span><code>/plugin marketplace add Ephibbs/keydillo<br>/plugin install keydillo@keydillo</code></li>
+</ul>
+<p class="brew" style="text-align:left">Requires macOS 15 or later. The first signed build is on its way. Watch the repo on GitHub to hear when it ships.</p>
+</div></section>
+
+<section id="faq"><div class="w">
+<h2>FAQ</h2>
+<details><summary>Does the model ever see my key?</summary><p>No. It only sees a placeholder. The real key is added on your Mac, after the request leaves the agent.</p></details>
+<details><summary>How is this different from 1Password or Doppler?</summary><p>They put the real key into your app's environment, where an agent can read it. With keydillo the key never reaches the app or the agent. It's added on your Mac as the request goes out.</p></details>
+<details><summary>What if keydillo isn't running?</summary><p><code>kd</code> opens it in the background. Without keydillo, requests that need a key fail, because the placeholder isn't a real key.</p></details>
+<details><summary>Which tools work with it?</summary><p>Commands you run with <code>kd</code> in front: curl, Python, Node, Bun and Deno are tested. Go and Rust programs, gRPC and Docker don't work under <code>kd</code> yet; they can call the local address instead.</p></details>
+<details><summary>How often do I use Touch ID?</summary><p>Once per session by default. In setup you can pick every time or every 15 minutes instead.</p></details>
+<details><summary>Can I get a key back out?</summary><p>Yes, in the app, after Touch ID. Agents can't.</p></details>
+<details><summary>Windows or Linux?</summary><p>Not yet. It's built on the Mac Keychain.</p></details>
+</div></section>
+
+<footer><div class="w"><a class="brand" href="#"><svg class="mk" viewBox="4.5 49.5 94.5 20.0" aria-hidden="true"><g transform="translate(0,0) scale(1)">
+<mask id="k2" maskUnits="userSpaceOnUse" x="-20" y="-20" width="140" height="140">
+<g fill="#fff"><circle cx="12" cy="62" r="6.5"/><circle cx="29" cy="62" r="6.5"/><circle cx="46" cy="62" r="6.5"/><path d="M58 68.5 A16 18 0 0 1 90 68.5 Z"/><path d="M87 58 C92 59 96 63 98 68.5 L85 68.5 Z"/><path d="M87 59 L89.5 52 L92 60 Z"/></g><g fill="#000"><path d="M68 48 V69 M74 48 V69 M80 48 V69" stroke="#000" stroke-width="2.4"/></g></mask>
+<rect x="-20" y="-20" width="140" height="140" fill="currentColor" mask="url(#k2)"/></g></svg>keydillo</a><a href="https://github.com/Ephibbs/keydillo">GitHub</a><span>MIT license</span><a href="https://github.com/Ephibbs/keydillo/security/advisories/new">Report a vulnerability</a><span style="margin-left:auto">No cookies, no tracking.</span></div></footer>
+</body></html>
