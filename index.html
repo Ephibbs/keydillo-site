@@ -128,9 +128,11 @@ footer .brand svg{height:11px}
 <section><div class="w">
 <h2>How it works</h2>
 <ol>
-<li><span>Paste a key into keydillo.</span></li>
-<li><span>Connect Claude Code. It only ever gets a placeholder, and puts <code>kd</code> in front of commands that use it.</span></li>
-<li><span>Approve with Touch ID. keydillo sends the real key, only to that key's host.</span></li>
+<li><span>Install keydillo and connect Claude Code.</span></li>
+<li><span>Bring in your <code>.env</code> keys. Each one is replaced with a placeholder.</span></li>
+<li><span>Ask Claude to run or build something. It puts <code>kd</code> in front of the command.</span></li>
+<li><span>Touch ID asks before a key is used, and names the key and the app.</span></li>
+<li><span>keydillo adds the real key on the way out, only to that key's host. Claude only ever sees the placeholder.</span></li>
 </ol>
 </div></section>
 
