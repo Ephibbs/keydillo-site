@@ -165,7 +165,7 @@ footer .brand svg{height:11px}
 
 <section id="faq"><div class="w">
 <h2>FAQ</h2>
-<details><summary>Does the model ever see my key?</summary><p>Not your API keys. It only sees a placeholder, and the real key is added on your Mac after the request leaves. Keys your app uses itself, like a database password, are handed to the app when it starts. They're never in a file Claude reads, but a command that prints the app's environment could show them.</p></details>
+<details><summary>Does the model ever see my key?</summary><p>Not your API keys. It only sees a placeholder, and the real key is added on your Mac after the request leaves. Keys your app uses itself, like a database password, are handed to the app when it starts. They're never in a file Claude reads, but a command that prints the app's environment could show them. We're working on closing this, starting with database passwords, so they never reach the app either.</p></details>
 <details><summary>How is this different from 1Password or Doppler?</summary><p>They put the real key into your app's environment, where an agent can read it. With keydillo an API key never reaches the app or the agent. It's added on your Mac as the request goes out.</p></details>
 <details><summary>What if keydillo isn't running?</summary><p><code>kd</code> opens it in the background. Without keydillo, requests that need a key fail, because the placeholder isn't a real key.</p></details>
 <details><summary>Which tools work with it?</summary><p>Commands you run with <code>kd</code> in front: curl, Python, Node, Bun and Deno are tested. Go and Rust programs, gRPC and Docker don't work under <code>kd</code> yet; they can call the local address instead.</p></details>
