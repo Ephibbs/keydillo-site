@@ -1,0 +1,112 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{width:800px;height:440px;background:#fff;overflow:hidden}
+body{font-family:-apple-system,"SF Pro Text",Inter,sans-serif;-webkit-font-smoothing:antialiased;position:relative}
+.win{position:absolute;left:40px;top:28px;width:720px;height:384px;background:#fff;border-radius:12px;box-shadow:0 0 0 .5px rgba(0,0,0,.16),0 18px 50px -18px rgba(0,0,0,.28);overflow:hidden}
+.bar{height:34px;display:flex;align-items:center;padding:0 12px;gap:7px;border-bottom:1px solid #ececec;position:relative}
+.bar i{width:11px;height:11px;border-radius:50%;background:#dcdcdc;display:block}
+.bar span{position:absolute;left:0;right:0;text-align:center;font-size:12px;color:#8a8a8a;font-weight:500}
+.term{padding:14px 18px;font:13px/1.62 "SF Mono",ui-monospace,Menlo,monospace;color:#1a1a1a;white-space:pre}
+.m{color:#8a8a8a}
+.b{font-weight:600}
+.you{background:#f3f3f3;border-radius:6px;padding:2px 8px;margin:6px 0 8px -8px;display:inline-block}
+.dot{color:#1a1a1a}
+.ok{color:#1e8e3e}
+.cur{display:inline-block;width:7px;height:15px;background:#1a1a1a;vertical-align:-3px}
+.hide{visibility:hidden}
+.dim{position:absolute;inset:0;background:rgba(0,0,0,.18);opacity:0}
+.tdlg{position:absolute;left:50%;top:50%;width:268px;margin-left:-134px;margin-top:-165px;background:#ececec;border-radius:14px;padding:20px 18px 14px;text-align:center;color:#111;box-shadow:0 0 0 .5px rgba(0,0,0,.2),0 26px 60px -18px rgba(0,0,0,.45);opacity:0}
+.appi{width:58px;height:58px;display:block;margin:0 auto 8px}
+.tdlg b{display:block;font-size:13px;font-weight:700}
+.tdlg p{font-size:11.5px;line-height:1.38;margin:6px 0 12px;color:#222}
+.fp{width:44px;height:44px;color:#ff375f;display:block;margin:0 auto 6px}
+.tdlg small{display:block;font-size:11.5px;color:#555;margin-bottom:12px}
+.tdlg span{display:block;height:26px;line-height:26px;border-radius:7px;background:#fff;font-size:12.5px;margin-top:7px;box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 1px rgba(0,0,0,.06)}
+
+.kw{position:absolute;left:50%;top:50%;width:400px;margin-left:-200px;margin-top:-178px;background:#fff;border-radius:16px;box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 28px 70px -20px rgba(0,0,0,.45);opacity:0;color:#0d0d0d;overflow:hidden}
+.kw .tb{height:28px;display:flex;align-items:center;gap:7px;padding:0 12px}.kw .tb i{width:11px;height:11px;border-radius:50%;background:#dcdcdc;display:block}
+.kw .in{padding:6px 24px 22px}
+.kw h4{font-size:19px;font-weight:600;line-height:1.25;margin:0 0 6px;letter-spacing:-.01em}
+.kw .sub{font-size:13.5px;color:#676767;margin:0 0 16px}
+.fld{height:44px;border-radius:12px;background:#f4f4f4;box-shadow:inset 0 0 0 1.5px #0d0d0d;display:flex;align-items:center;padding:0 14px;font-size:14px;color:#8e8e8e;letter-spacing:0}
+.fld.f{color:#0d0d0d;letter-spacing:2px;font-size:15px}
+.ln{font-size:12.5px;margin-top:9px;display:flex;gap:6px;align-items:center;color:#444}
+.ln .ck{color:#1e8e3e;font-weight:700;font-size:11px}
+.ln code{font:600 12.5px "SF Mono",ui-monospace,Menlo,monospace;color:#0d0d0d}
+.ln u{font-weight:600;color:#0d0d0d}
+.opt{font-size:13px;color:#444;margin:16px 0 0}
+.btns{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.btns span{height:34px;padding:0 16px;border-radius:17px;font-size:13px;display:flex;align-items:center;border:1px solid #dcdcdc;background:#fff}
+.btns span.p{background:#0d0d0d;color:#fff;border:0;font-weight:500}
+.btns span.p.down{background:#444}
+.sv{display:none}
+.sv .okc{width:40px;height:40px;border-radius:50%;background:#0d0d0d;color:#fff;display:grid;place-items:center;font-weight:700;font-size:17px;margin:4px 0 12px}
+.sv pre{font:11px/1.6 "SF Mono",ui-monospace,Menlo,monospace;background:#f4f4f4;border-radius:12px;padding:12px;margin:14px 0 0;white-space:pre}
+.add{color:#1e8e3e}
+</style></head><body>
+<div class="win">
+  <div class="bar"><i></i><i></i><i></i><span>voiceover</span></div>
+  <div class="term" id="t"></div>
+</div>
+<div class="dim" id="dim"></div>
+<div class="kw" id="kw"><div class="tb"><i></i><i></i><i></i></div><div class="in">
+<div id="form"><h4>Claude Code wants to use your ElevenLabs key</h4><p class="sub">Your key is encrypted. Claude Code never sees it.</p>
+<div class="fld" id="fld">Paste your key</div>
+<div class="ln"><span class="ck">✓</span>Only ever sent to <code>api.elevenlabs.io</code></div>
+<div class="ln">Don't have one? Create it at <u>elevenlabs.io ↗</u></div>
+<p class="opt">›&nbsp; Options</p>
+<div class="btns"><span>Decline</span><span class="p" id="save">Save with Touch ID</span></div></div>
+<div class="sv" id="saved"><div class="okc">✓</div><h4>Saved</h4><p class="sub">Claude Code can use ElevenLabs now. You'll approve with Touch ID once per session.</p>
+<pre>ELEVENLABS_BASE_URL=http://localhost:7787/elevenlabs
+ELEVENLABS_API_KEY=keydillo:elevenlabs</pre>
+<div class="btns"><span class="p">Done</span></div></div>
+</div></div>
+<div class="tdlg" id="dlg"><svg class="appi" viewBox="80 80 864 864" aria-hidden="true"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2b2b"/><stop offset="1" stop-color="#0b0b0b"/></linearGradient></defs>
+<rect x="100" y="100" width="824" height="824" rx="185" fill="url(#ag)"/>
+<g transform="translate(246.6,206.9) scale(5.128)">
+<mask id="am" maskUnits="userSpaceOnUse" x="-20" y="-20" width="140" height="140">
+<g fill="#fff"><circle cx="12" cy="62" r="6.5"/><circle cx="29" cy="62" r="6.5"/><circle cx="46" cy="62" r="6.5"/><path d="M58 68.5 A16 18 0 0 1 90 68.5 Z"/><path d="M87 58 C92 59 96 63 98 68.5 L85 68.5 Z"/><path d="M87 59 L89.5 52 L92 60 Z"/></g><g fill="#000"><path d="M68 48 V69 M74 48 V69 M80 48 V69" stroke="#000" stroke-width="2.4"/></g></mask>
+<rect x="-20" y="-20" width="140" height="140" fill="#fff" mask="url(#am)"/></g></svg>
+<b>keydillo</b>
+<p>keydillo is trying to let Claude Code use your ElevenLabs key (python3): POST api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM</p>
+<svg class="fp" id="fp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10.5 20v-7a1.5 1.5 0 0 1 3 0v4"/><path d="M7.5 18.5V13a4.5 4.5 0 0 1 9 0v2.5"/><path d="M16.5 18.5v-.5"/><path d="M4.5 15v-2a7.5 7.5 0 0 1 15 0v3"/><path d="M13.5 20.5v-.5"/><path d="M6.2 6.6A7.5 7.5 0 0 0 4.6 9"/><path d="M8.5 4.9A7.5 7.5 0 0 1 17.8 6.6"/></svg>
+<small>Touch ID or enter your password</small>
+<span>Use Password…</span><span>Cancel</span>
+</div>
+
+<script>
+const P='<span class="m">~/voiceover $</span> ';
+const ask='Generate a voiceover for the intro';
+function type(s,t0,t,cps){const n=Math.max(0,Math.min(s.length,Math.floor((t-t0)*cps/1000)));return s.slice(0,n)}
+function fade(t,a,b,d){return t<a?0:t<a+d?(t-a)/d:t<b?1:t<b+d?1-(t-b)/d:0}
+function render(t){
+  let h='';
+  const cur=Math.floor(t/500)%2?'<span class="cur hide"></span>':'<span class="cur"></span>';
+  h+=P+type('claude',300,t,14)+(t<1000?cur:'')+'\n';
+  if(t>=1200){h+='\n<span class="you">&gt; '+type(ask,1400,t,20)+(t<3100?cur:'')+'</span>\n'}
+  if(t>=3400){h+='<span class="dot">⏺</span> <span class="b">keydillo - request_secret</span> (MCP)(service: "elevenlabs")\n'}
+  if(t>=3400&&t<8500){h+='<span class="m">  ⎿  Waiting for you in keydillo…</span>\n'}
+  if(t>=8500){h+='<span class="m">  ⎿  </span>Saved. ELEVENLABS_API_KEY=keydillo:elevenlabs\n'}
+  if(t>=9000){h+='<span class="dot">⏺</span> <span class="b">Update</span>(.env)\n<span class="m">  ⎿  </span><span class="add">+ ELEVENLABS_API_KEY=keydillo:elevenlabs</span>\n'}
+  if(t>=9800){h+='<span class="dot">⏺</span> <span class="b">Bash</span>(kd python voiceover.py intro.txt)\n'}
+  if(t>=9800&&t<13000){h+='<span class="m">  ⎿  Running…</span>\n'}
+  if(t>=13000){h+='<span class="m">  ⎿  </span>Saved intro.mp3 (14 s)\n'}
+  if(t>=13600){h+='\n<span class="dot">⏺</span> The voiceover is ready: intro.mp3, 14 seconds.\n'}
+  document.getElementById('t').innerHTML=h;
+  const k=fade(t,3800,8100,250), kw=document.getElementById('kw');
+  kw.style.opacity=k; kw.style.transform='scale('+(0.97+0.03*k)+')';
+  const f=document.getElementById('fld');
+  if(t>=5600){f.textContent='••••••••••••••••••••••••';f.className='fld f'}else{f.textContent='Paste your key';f.className='fld'}
+  document.getElementById('save').className='p'+(t>=6500&&t<6800?' down':'');
+  const sv=t>=6800; document.getElementById('form').style.display=sv?'none':'block'; document.getElementById('saved').style.display=sv?'block':'none';
+  const a=fade(t,10200,12500,250);
+  const d=document.getElementById('dlg'),dim=document.getElementById('dim');
+  d.style.opacity=a;dim.style.opacity=a;d.style.transform='scale('+(0.96+0.04*a)+')';
+  const fp=document.getElementById('fp');
+  fp.style.opacity=(t>11500&&t<12200)?(0.55+0.45*Math.abs(Math.cos((t-11500)/120))):1;
+}
+window.render=render;render(0);
+</script>
+</body></html>
