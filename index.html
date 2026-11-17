@@ -41,6 +41,8 @@ nav .w{position:relative}
 code,pre{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:14px}
 .brew{margin-top:20px;color:var(--muted);font-size:14px}
 .brew code{color:var(--fg)}
+.cmd{background:var(--fill);border-radius:12px;padding:14px 16px;margin:0 0 10px;overflow-x:auto}.cmd code{font-size:15px}
+.then{margin:0 0 24px;color:var(--muted)}
 section{padding:72px 0}
 h2{font-size:28px;letter-spacing:-.025em;font-weight:620;margin:0 0 28px}
 ol{list-style:none;padding:0;margin:0;counter-reset:s}
@@ -118,6 +120,7 @@ footer .brand svg{height:11px}
 <h1>Let AI use your keys without seeing them</h1>
 <p class="sub">Get set up in seconds and forget about it.</p>
 <div class="ctas"><a class="btn" href="https://github.com/Ephibbs/keydillo/releases/latest/download/keydillo.zip">Download for Mac</a><a class="btn alt" href="https://github.com/Ephibbs/keydillo">GitHub</a></div>
+<p class="brew"><code>brew install --cask ephibbs/keydillo/keydillo</code></p>
 </div></header>
 <div class="demo"><img src="keydillo-demo.gif" width="1000" height="550" alt="Claude Code is asked to generate a voiceover, runs kd python voiceover.py, keydillo asks for Touch ID to use the ElevenLabs key, and the voiceover is saved"></div>
 
@@ -159,9 +162,10 @@ footer .brand svg{height:11px}
 
 <section id="install"><div class="w">
 <h2>Install</h2>
+<pre class="cmd"><code>brew install --cask ephibbs/keydillo/keydillo</code></pre>
+<p class="then">Then open keydillo and choose Connect.</p>
 <ul class="inst">
-<li><span>Download</span><a class="btn alt sm" href="https://github.com/Ephibbs/keydillo/releases/latest/download/keydillo.zip">keydillo.zip</a></li>
-<li><span>Homebrew <small class="soon">· coming soon</small></span><code>brew install --cask keydillo</code></li>
+<li><span>Or download</span><a class="btn alt sm" href="https://github.com/Ephibbs/keydillo/releases/latest/download/keydillo.zip">keydillo.zip</a></li>
 <li><span>Claude Code plugin</span><code>/plugin marketplace add Ephibbs/keydillo<br>/plugin install keydillo@keydillo</code></li>
 </ul>
 <p class="brew" style="text-align:left">Requires macOS 15 or later. Signed and notarized by Apple.</p>
