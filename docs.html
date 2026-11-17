@@ -151,6 +151,9 @@ open Keydillo.xcodeproj</code></pre>
 <p>On first launch, setup asks how often to use Touch ID, then offers to connect Claude Code. Connect installs <code>kd</code> in <code>~/.local/bin</code>, next to <code>claude</code>, and tells Claude how to use keydillo. You can also install the Claude Code plugin:</p>
 <pre><code>/plugin marketplace add Ephibbs/keydillo
 /plugin install keydillo@keydillo</code></pre>
+<p>For Cursor, Codex and other coding agents, add keydillo's instructions as a skill:</p>
+<pre><code>npx skills add Ephibbs/keydillo</code></pre>
+<p>The skill adds the instructions but not the check that runs before each command, so for Claude Code prefer Connect or the plugin.</p>
 </section>
 
 <section id="kd">
@@ -211,7 +214,7 @@ OPENAI_API_KEY=keydillo:openai</code></pre>
 
 <section id="launch">
 <h2>Launch-time keys</h2>
-<p>Some secrets your app uses itself and never sends to an API: database URLs, JWT, session, encryption and webhook signing keys, and request-signing keys like AWS. keydillo can store these as launch-time keys. Your <code>.env</code> keeps a placeholder, and <code>kd</code> gives the real value to the program as it starts, after approval.</p>
+<p>Some secrets your app uses itself and never sends to an API: database URLs, JWT, session, encryption and webhook signing keys, and request-signing keys like AWS. keydillo can store these as launch-time keys. Your <code>.env</code> keeps a placeholder, and <code>kd</code> gives the real value to the program as it starts, after a Touch ID that names the command, every time.</p>
 <p>They are not fully hidden. The running program can see them, so a command that prints its environment could reveal them. They're unticked at import; tick the ones you want.</p>
 <p class="note">Planned: a local database proxy so passwords never enter the program, then signing and encryption keys. See the <a href="https://github.com/Ephibbs/keydillo/blob/main/docs/roadmap.md"><u>roadmap</u></a>.</p>
 </section>

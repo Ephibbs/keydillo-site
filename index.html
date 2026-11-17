@@ -53,6 +53,11 @@ ol li:last-child{border-bottom:1px solid var(--line)}
 h3{font-size:15px;font-weight:600;margin:0 0 10px}
 ul{list-style:none;padding:0;margin:0}
 ul li{padding:6px 0;color:var(--muted)}
+.sec li{display:grid;grid-template-columns:28px 1fr;padding:12px 0;border-top:1px solid var(--line);color:var(--fg)}
+.sec li:last-child{border-bottom:1px solid var(--line)}
+.sec i{font-style:normal;font-weight:600}.sec .y i{color:#1e8e3e}.sec .w i{color:#b26b00}.sec .n i{color:var(--muted)}
+.sec b{display:block;font-weight:500;font-size:16px}.sec span{color:var(--muted);font-size:15px}
+.sec code{font-size:13px}
 .inst li{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:16px 0;border-top:1px solid var(--line);color:var(--fg)}
 .inst li:last-child{border-bottom:1px solid var(--line)}
 .inst code{color:var(--muted);text-align:right}
@@ -145,19 +150,8 @@ footer .brand svg{height:11px}
 
 <section><div class="w">
 <h2>Security</h2>
-<div class="cols">
-<div><h3>Protects</h3><ul>
-<li>API keys out of prompts and transcripts</li>
-<li>Keys at rest, behind Touch ID</li>
-<li>Keys sent to the wrong host</li>
-</ul></div>
-<div><h3>Doesn't protect</h3><ul>
-<li>What an agent does with access you approve</li>
-<li>Keys your app reads at launch, once it's running</li>
-<li>Copies made before you installed it</li>
-<li>A Mac that's already compromised</li>
-</ul></div>
-</div>
+<ul class="sec"><li class="y"><i>✓</i><div><b>AI agents never see your real API keys</b><span>Your <code>.env</code> only holds <code>keydillo:&lt;name&gt;</code> placeholders.</span></div></li><li class="y"><i>✓</i><div><b>Committing an imported <code>.env</code> leaks nothing</b><span>Only the placeholder is in the file.</span></div></li><li class="y"><i>✓</i><div><b>Keys stay out of chats, transcripts and logs</b><span>Agents never get the value, and keydillo scrubs it from responses.</span></div></li><li class="y"><i>✓</i><div><b>Other apps can't read your keys</b><span>They sit in a private Keychain group only keydillo can open, behind Touch ID.</span></div></li><li class="y"><i>✓</i><div><b>Keys only go to their own site</b><span>Sending one to a new host needs your Touch ID.</span></div></li><li class="y"><i>✓</i><div><b>Web pages can't use your keys</b><span>Cross-site browser requests are refused.</span></div></li><li class="w"><i>!</i><div><b>Launch-time keys are hidden from files, but the program you start can read them</b><span>Database URLs, JWT secrets and the like. A database proxy is on the roadmap.</span></div></li><li class="n"><i>✕</i><div><b>Doesn't stop a program you approved from misusing the key</b><span>keydillo guards the key, not what is done with it at the provider.</span></div></li><li class="n"><i>✕</i><div><b>Doesn't protect keys in deployed frontend code</b><span>keydillo works on your Mac, not in production.</span></div></li><li class="n"><i>✕</i><div><b>Doesn't protect copies made before you installed it</b><span>Old <code>.env</code> files, shell and git history. Rotate those keys.</span></div></li></ul>
+<p class="brew" style="text-align:left">More in the <a href="https://github.com/Ephibbs/keydillo#security-model-and-limits"><u>security model and limits</u></a>.</p>
 </div></section>
 
 <section id="install"><div class="w">
@@ -167,6 +161,7 @@ footer .brand svg{height:11px}
 <ul class="inst">
 <li><span>Or download</span><a class="btn alt sm" href="https://github.com/Ephibbs/keydillo/releases/latest/download/keydillo.zip">keydillo.zip</a></li>
 <li><span>Claude Code plugin</span><code>/plugin marketplace add Ephibbs/keydillo<br>/plugin install keydillo@keydillo</code></li>
+<li><span>Other AI coding tools</span><code>npx skills add Ephibbs/keydillo</code></li>
 </ul>
 <p class="brew" style="text-align:left">Requires macOS 15 or later. Signed and notarized by Apple.</p>
 </div></section>
