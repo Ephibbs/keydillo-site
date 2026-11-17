@@ -31,8 +31,9 @@ h3 code{font-size:14px}
 header{padding:120px 0 56px;text-align:center}
 header .w{max-width:800px}
 h1{text-wrap:balance}
-header .mk{height:30px;width:auto;margin-bottom:40px}
+header .mk{height:30px;width:auto;margin-bottom:32px;display:block;margin-left:auto;margin-right:auto}
 h1{font-size:clamp(36px,6vw,56px);line-height:1.08;letter-spacing:-.035em;font-weight:650;margin:0 0 20px}
+.pill{display:inline-block;background:var(--fill);border-radius:999px;padding:5px 14px;font-size:14px;font-weight:500;margin:0 0 22px}
 .sub{color:var(--muted);font-size:19px;margin:0 auto 36px;max-width:520px}
 .ctas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 code,pre{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:14px}
@@ -112,8 +113,9 @@ footer .brand svg{height:11px}
 <mask id="kb" maskUnits="userSpaceOnUse" x="-20" y="-20" width="140" height="140">
 <g fill="#fff"><circle cx="12" cy="62" r="6.5"/><circle cx="29" cy="62" r="6.5"/><circle cx="46" cy="62" r="6.5"/><path d="M58 68.5 A16 18 0 0 1 90 68.5 Z"/><path d="M87 58 C92 59 96 63 98 68.5 L85 68.5 Z"/><path d="M87 59 L89.5 52 L92 60 Z"/></g><g fill="#000"><path d="M68 48 V69 M74 48 V69 M80 48 V69" stroke="#000" stroke-width="2.4"/></g></mask>
 <rect x="-20" y="-20" width="140" height="140" fill="currentColor" mask="url(#kb)"/></g></svg>
+<div class="pill">100% free, local, and open-source</div>
 <h1>Let AI use your keys without seeing them</h1>
-<p class="sub">Get set up in seconds and forget about it. 100% free, local, and open-source.</p>
+<p class="sub">Get set up in seconds and forget about it.</p>
 <div class="ctas"><a class="btn" href="#install">Get keydillo</a><a class="btn alt" href="https://github.com/Ephibbs/keydillo">GitHub</a></div>
 </div></header>
 <div class="demo"><img src="keydillo-demo.gif" width="1000" height="550" alt="Claude Code is asked to generate a voiceover, runs kd python voiceover.py, keydillo asks for Touch ID to use the ElevenLabs key, and the voiceover is saved"></div>
