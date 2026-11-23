@@ -49,6 +49,7 @@ ol{list-style:none;padding:0;margin:0;counter-reset:s}
 ol li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;padding:14px 0;border-top:1px solid var(--line)}
 ol li:before{content:counter(s);color:var(--muted)}
 ol li:last-child{border-bottom:1px solid var(--line)}
+ol code{overflow-wrap:anywhere}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
 h3{font-size:15px;font-weight:600;margin:0 0 10px}
 ul{list-style:none;padding:0;margin:0}
@@ -139,11 +140,10 @@ footer .brand svg{height:11px}
 <section><div class="w">
 <h2>Your AI's missing secrets manager</h2>
 <ol>
-<li><span>Install keydillo and connect Claude.</span></li>
-<li><span>Import your <code>.env</code>. Keys become placeholders.</span></li>
-<li><span>Ask Claude to run it. It adds <code>kd</code>.</span></li>
-<li><span>Approve with Touch ID.</span></li>
-<li><span>The real API key goes out. Claude never sees it.</span></li>
+<li><span><b>Your keys live in the Mac Keychain, not in .env files.</b> keydillo imports them, and your .env gets replaced with placeholders like <code>OPENAI_API_KEY=keydillo:openai:start-with-keydillo-run</code>. If Claude reads the file, the placeholder is all it sees.</span></li>
+<li><span><b>Run your app with <code>kd</code>.</b> <code>kd npm run dev</code> sends your app's API calls through a small proxy that runs only on your Mac. Don't worry. Claude will run it without you asking.</span></li>
+<li><span><b>The proxy swaps in the real key at the last moment.</b> When a request leaves for api.openai.com, keydillo replaces the placeholder with the real key, and only for the site that key belongs to. The key never shows up in your code, terminal, logs or Claude's context!</span></li>
+<li><span><b>You approve with Touch ID.</b> The first time a key is used, you get a prompt naming the app and the site. Approve once per session, or turn on "don't ask again".</span></li>
 </ol>
 </div></section>
 
