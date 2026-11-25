@@ -151,9 +151,8 @@ open Keydillo.xcodeproj</code></pre>
 <p>On first launch, setup asks how often to use Touch ID, then offers to connect Claude Code. Connect installs <code>kd</code> in <code>~/.local/bin</code>, next to <code>claude</code>, and tells Claude how to use keydillo. You can also install the Claude Code plugin:</p>
 <pre><code>/plugin marketplace add Ephibbs/keydillo
 /plugin install keydillo@keydillo</code></pre>
-<p>For Cursor, Codex and other coding agents, add keydillo's instructions as a skill:</p>
+<p>Connect also sets up Cursor and Codex when they're installed: keydillo's tools, its instructions and the check before each command. Codex asks you to trust the new hooks once, under <code>/hooks</code>. For other coding agents, add keydillo's instructions as a skill:</p>
 <pre><code>npx skills add Ephibbs/keydillo</code></pre>
-<p>The skill adds the instructions but not the check that runs before each command, so for Claude Code prefer Connect or the plugin.</p>
 </section>
 
 <section id="kd">
@@ -194,21 +193,27 @@ OPENAI_API_KEY=keydillo:openai</code></pre>
 
 <section id="approval">
 <h2>Touch ID and approval</h2>
-<p>You choose the default in setup and can change it in Settings, or per project on the project's page.</p>
+<p>When a program wants a key, keydillo shows one card: who is asking, the key, the site and the request, with Touch ID built into the card. <b>More details</b> shows the full request, the command, the program file and the folder. Deny cancels it. macOS lets your login password stand in for Touch ID.</p>
+<p>How often you're asked is the <b>Ask for Touch ID</b> menu in Settings. Projects can change it on their page.</p>
 <table>
 <tr><th>Setting</th><th>What it does</th></tr>
 <tr><td>Every time</td><td>Touch ID for every request that uses a key.</td></tr>
 <tr><td>Once per session</td><td>The default. Touch ID once, then the same program can keep using the key until it exits.</td></tr>
-<tr><td>Ask once per project</td><td>After one Touch ID, any program run from the project's folder, not just Claude, can use its keys until keydillo quits, even while the Mac is locked. Turning it on needs Touch ID. Use it only for projects whose keys can't cost much.</td></tr>
+<tr><td>Once per app</td><td>Claude Code or Cursor asks once. After that, it and everything it runs use your keys without asking, even while the Mac is locked. Adding a key, sending a key to a new site, launch-time keys and showing a key still ask. keydillo checks the app's code signature, so another program can't pass as Claude Code. Other programs ask once per session. Trusted apps are listed under the menu, each with Remove.</td></tr>
+<tr><td>Once per project</td><td>After one Touch ID, any program run from the project's folder, not just Claude, can use its keys until keydillo quits, even while the Mac is locked. Use it only for projects whose keys can't cost much.</td></tr>
 </table>
-<p>The prompt names the key and the program asking for it. macOS lets your login password stand in for Touch ID.</p>
-<p>While the Mac is locked, keys can't be read and requests get a clear "Mac is locked" reply, except for projects set to Ask once per project.</p>
+<p>Choosing a setting that asks less often needs Touch ID.</p>
+<p>A key can also ask before each new kind of request: turn on <b>Ask before new kinds of requests</b> on the key's page, and Touch ID names each new method and path. IDs are folded, so <code>/v1/voices/abc</code> and <code>/v1/voices/xyz</code> count as one.</p>
+<p>While the Mac is locked, keys can't be read and requests get a clear "Mac is locked" reply, except for trusted apps, projects set to Once per project, and requests you approve on your iPhone.</p>
+<h3>iPhone approvals</h3>
+<p>Pair the keydillo iPhone app under Settings → iPhone, and requests also go to your phone. Approve with Face ID there or Touch ID on the Mac, whichever comes first. The phone never sees your keys. The iPhone app is in testing and coming soon to the App Store.</p>
 </section>
 
 <section id="projects">
 <h2>Projects and folders</h2>
 <p>Keys are grouped by project. A project's folder is how keydillo knows which keys a program in that folder should use. Keys you add from Claude Code are filed under the current folder's name.</p>
-<p>A project without a folder can still hold keys and change its Touch ID setting, but Ask once per project needs a folder. Use <b>Set folder…</b> on the project's page, which asks for Touch ID. Your Home, Desktop and Documents folders can't be project folders.</p>
+<p>Keys with no lasting project folder live in <b>General</b>, and any folder can use them, with the usual Touch ID. Keys added from a temporary folder land there too. Moving a key between projects needs Touch ID.</p>
+<p>A project without a folder can still hold keys and change its Touch ID setting, but Once per project needs a folder. Use <b>Set folder…</b> on the project's page, which asks for Touch ID. Your Home, Desktop and Documents folders can't be project folders.</p>
 <p>To copy a project's keys out for Vercel or Fly, use the Readout in the app, behind Touch ID. Copied text clears from the clipboard after 30 seconds.</p>
 </section>
 
@@ -216,7 +221,9 @@ OPENAI_API_KEY=keydillo:openai</code></pre>
 <h2>Launch-time keys</h2>
 <p>Some secrets your app uses itself and never sends to an API: database URLs, JWT, session, encryption and webhook signing keys, and request-signing keys like AWS. keydillo can store these as launch-time keys. Your <code>.env</code> keeps a placeholder, and <code>kd</code> gives the real value to the program as it starts, after a Touch ID that names the command, every time.</p>
 <p>They are not fully hidden. The running program can see them, so a command that prints its environment could reveal them. They're unticked at import; tick the ones you want.</p>
-<p class="note">Planned: a local database proxy so passwords never enter the program, then signing and encryption keys. See the <a href="https://github.com/Ephibbs/keydillo/blob/main/docs/roadmap.md"><u>roadmap</u></a>.</p>
+<p>Postgres URLs don't need to be launch-time keys. keydillo runs a local database endpoint, so the program connects with a local URL and never sees the password. URLs with client certificates, channel binding or several hosts stay launch-time keys.</p>
+<p>JWT, session and encryption secrets can get a random dev-only value in <code>.env</code> instead, with the real value kept for deploys.</p>
+<p class="note">Planned: signing and encryption keys. See the <a href="https://github.com/Ephibbs/keydillo/blob/main/docs/roadmap.md"><u>roadmap</u></a>.</p>
 </section>
 
 <section id="cli">
@@ -268,7 +275,7 @@ OPENAI_API_KEY=keydillo:openai</code></pre>
 <section id="limits">
 <h2>What doesn't work yet</h2>
 <ul class="b">
-<li>Under <code>kd</code>: Go and Rust programs (they ignore the extra certificate), gRPC, Next.js edge middleware, Python run with <code>-I</code>, and programs started with a cleaned environment. Call the base URL instead.</li>
+<li>Under <code>kd</code>: gRPC, Next.js edge middleware, Python run with <code>-I</code>, and programs started with a cleaned environment. Call the base URL instead. Go and Rust programs ignore the extra certificate, so <code>kd</code> sets the provider's base-URL variable for them, and SDKs that read it work.</li>
 <li>Docker: containers started with <code>--env-file</code> don't go through <code>kd</code>. Use <code>http://host.docker.internal:7787/&lt;name&gt;</code> as the base URL.</li>
 <li>Programs not started with <code>kd</code>, like IDE run buttons or cron jobs.</li>
 <li>Background processes that detach right away (pm2, tmux) lose access when <code>kd</code> exits.</li>
@@ -280,7 +287,7 @@ OPENAI_API_KEY=keydillo:openai</code></pre>
 <section id="off">
 <h2>Turning it off</h2>
 <p>Quit keydillo from the menu bar to stop all key use. To stop using it, choose <b>Put my real keys back</b> in the menu bar or Settings and confirm with Touch ID. It restores your <code>.env</code> files, for one project or all of them.</p>
-<p>Settings also has <b>Uninstall keydillo…</b>, which can put the real keys back first, delete your keys from the Keychain, remove keydillo from Claude Code and stop it starting at login.</p>
+<p>Settings → More has <b>Uninstall keydillo…</b>, which can put the real keys back first, delete your keys from the Keychain, remove keydillo from Claude Code, Cursor and Codex and stop it starting at login.</p>
 </section>
 </main>
 </div>
